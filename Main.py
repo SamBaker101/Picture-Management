@@ -8,6 +8,7 @@ from PIL import Image
 import torch
 import torchvision
 from Helper import Picture
+import matplotlib.pyplot as plt
 
 def main():
 
@@ -22,11 +23,7 @@ def main():
     image.cropImage(120, 50, 200, 200)
 
     image.imageToTensor()
-    print(image.tensor)
-
-    image.colourFilter(2, 0)
-
-    image.showImage()
+    
 
     image.saveImage(save_path)
 
