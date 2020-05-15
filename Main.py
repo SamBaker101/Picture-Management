@@ -7,7 +7,6 @@ jazz picture source: https://www.flickr.com/photos/29713047@N00/157845230
 from PIL import Image
 import torch
 import torchvision
-import Helper
 from Helper import Picture
 
 def main():
