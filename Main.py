@@ -1,5 +1,6 @@
 '''
 Sam Baker - 05/15/2020
+deer picture source: personal
 jazz picture source: https://www.flickr.com/photos/29713047@N00/157845230
 '''
 
