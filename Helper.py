@@ -15,9 +15,9 @@ class Picture:
         try:
             self.image = Image.open(path)
             self.width, self.height = self.image.size
+            self.tensor = ToTensor(self.image)
         except IOError:
             print('Something went wrong')
-
 
     def getImage(self):
         return self.image
@@ -31,6 +31,8 @@ class Picture:
     def cropImage(self, x, y, size_x, size_y):
         # x,y refer to top left corner
         self.image = self.image.crop((x, y, x + size_x, y + size_y))
+        self.tensor = ToTensor(self.image)
+        self.width, self.height = self.image.size
 
     def imageToTensor(self):
         self.tensor = ToTensor(self.image)
@@ -50,4 +52,18 @@ class Picture:
             for j in range(0, self.tensor[colour].size()[1]):
                 self.tensor[colour][i][j] = new_value
         self.tensorToImage()
+
+    def halfResLazy(self):
+        new_tensor = torch.zeros(3, int((self.width)/2), int((self.height)/2)-1)
+        print(new_tensor)
+
+        self.tensor = ToTensor(self.image)
+        for i in range(3):
+            for j in range(int(self.width/2 - 1)):
+                for k in range(int(self.height/2 - 1)):
+                    new_tensor[i][j][k] = self.tensor[i][j*2][k*2]
+        self.tensor = new_tensor
+        self.image = ToPIL(self.tensor)
+        self.width, self.height = self.image.size
+
 

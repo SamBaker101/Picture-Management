@@ -22,8 +22,13 @@ def main():
 
     image.cropImage(120, 50, 200, 200)
 
-    image.imageToTensor()
+    print('Width: ', image.width)
+    print('Height', image.height)
+
+    image.halfResLazy()
     
+    image.plotTensor(0)
+    image.showImage()
 
     image.saveImage(save_path)
 
