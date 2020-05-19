@@ -20,14 +20,16 @@ def main():
     print('Width: ', image.width)
     print('Height', image.height)
 
-    image.cropImage(120, 50, 200, 200)
+    image.cropImage(70, 50, 300, 200)
 
     print('Width: ', image.width)
     print('Height', image.height)
 
-    image.halfResLow()
+    image.halfResHigh()
 
     image.plotTensor(0)
+
+    image.grayTest()
 
     image.saveImage(save_path)
 
