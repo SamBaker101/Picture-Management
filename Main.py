@@ -25,10 +25,9 @@ def main():
     print('Width: ', image.width)
     print('Height', image.height)
 
-    image.halfResLazy()
-    
+    image.halfResLow()
+
     image.plotTensor(0)
-    image.showImage()
 
     image.saveImage(save_path)
 

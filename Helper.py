@@ -54,8 +54,7 @@ class Picture:
         self.tensorToImage()
 
     def halfResLazy(self):
-        new_tensor = torch.zeros(3, int((self.width)/2), int((self.height)/2)-1)
-        print(new_tensor)
+        new_tensor = torch.zeros(3, int((self.width)/2), int((self.height)/2))
 
         self.tensor = ToTensor(self.image)
         for i in range(3):
@@ -66,4 +65,32 @@ class Picture:
         self.image = ToPIL(self.tensor)
         self.width, self.height = self.image.size
 
+    def halfResHigh(self):
+        new_tensor = torch.zeros(3, int(self.width / 2), int(self.height / 2))
+        view_tensor = torch.zeros(2, 2)
 
+        self.tensor = ToTensor(self.image)
+        for i in range(3):
+            for j in range(int(self.width / 2 - 1)):
+                for k in range(int(self.height / 2 - 1)):
+                    view_tensor[0] = self.tensor[i][j*2][k*2:k*2+2]
+                    view_tensor[1] = self.tensor[i][j*2+1][k*2:k*2+2]
+                    new_tensor[i][j][k] = torch.max(view_tensor)
+        self.tensor = new_tensor
+        self.image = ToPIL(self.tensor)
+        self.width, self.height = self.image.size
+
+    def halfResLow(self):
+        new_tensor = torch.zeros(3, int(self.width / 2), int(self.height / 2))
+        view_tensor = torch.zeros(2, 2)
+
+        self.tensor = ToTensor(self.image)
+        for i in range(3):
+            for j in range(int(self.width / 2 - 1)):
+                for k in range(int(self.height / 2 - 1)):
+                    view_tensor[0] = self.tensor[i][j*2][k*2:k*2+2]
+                    view_tensor[1] = self.tensor[i][j*2+1][k*2:k*2+2]
+                    new_tensor[i][j][k] = torch.min(view_tensor)
+        self.tensor = new_tensor
+        self.image = ToPIL(self.tensor)
+        self.width, self.height = self.image.size
