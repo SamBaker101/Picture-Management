@@ -25,11 +25,9 @@ def main():
     print('Width: ', image.width)
     print('Height', image.height)
 
-    image.halfResHigh()
+    image.grayScale()
 
-    image.plotTensor(0)
-
-    image.grayTest()
+    image.showImage()
 
     image.saveImage(save_path)
 

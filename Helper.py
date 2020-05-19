@@ -96,5 +96,13 @@ class Picture:
         self.width, self.height = self.image.size
 
     def grayScale(self):
-        for i in range(self.width):
-            pass
+        self.tensor = ToTensor(self.image)
+        new_tensor = torch.zeros(1, self.height, self.width)
+
+        for i in range(self.height):
+            for j in range(self.width):
+                new_tensor[0][i][j] = (self.tensor[0][i][j] +
+                                       self.tensor[1][i][j] +
+                                       self.tensor[2][i][j])/3
+        self.tensor = new_tensor
+        self.image = ToPIL(self.tensor)
