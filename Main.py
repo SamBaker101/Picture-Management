@@ -23,7 +23,6 @@ def main():
     image.cropImage(70, 50, 300, 200)
 
     image.flatten()
-    image.deFlatten()
 
     image.saveImage(save_path)
 
