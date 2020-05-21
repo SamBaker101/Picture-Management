@@ -1,3 +1,9 @@
+'''
+Sam Baker - 05/15/2020
+deer picture source: personal
+jazz picture source: https://www.flickr.com/photos/29713047@N00/157845230
+'''
+
 from PIL import Image
 import torch
 import torchvision
@@ -5,7 +11,6 @@ import matplotlib.pyplot as plt
 
 ToTensor = torchvision.transforms.ToTensor()
 ToPIL = torchvision.transforms.ToPILImage()
-
 
 class Picture:
     def __init__(self, path):
@@ -112,3 +117,32 @@ class Picture:
         self.tensor = new_tensor
         self.image = ToPIL(self.tensor)
 
+    def maxPool(self, kernel_size=2, stride=1):
+        if stride > kernel_size:
+            print('Invalid Parameters for Pooling')
+            return
+
+        if stride==1:
+            new_tensor = torch.zeros(3, int((self.height)-1), int((self.width)-1))
+
+        else:
+            new_tensor = torch.zeros(3, int(self.height/stride), int(self.width/stride))
+
+        view_tensor = torch.zeros(2, 2)
+        self.tensor = ToTensor(self.image)
+
+        for i in range(3):
+            j , k = 0, 0
+            while j < self.width - kernel_size:
+                while k < self.height - kernel_size:
+                    view_tensor[0] = self.tensor[i][k][j:j + 2]
+                    view_tensor[1] = self.tensor[i][k + 1][j:j+ 2]
+                    new_tensor[i][int(k/stride)][int(j/stride)] = torch.max(view_tensor)
+                    print(k, j)
+                    k += stride
+                j += stride
+                k = 0
+
+        self.tensor = new_tensor
+        self.image = ToPIL(self.tensor)
+        self.width, self.height = self.image.size

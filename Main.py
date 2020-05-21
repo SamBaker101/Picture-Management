@@ -21,9 +21,8 @@ def main():
     print('Height', image.height)
 
     image.cropImage(70, 50, 300, 200)
-
-    image.flatten()
-
+    image.maxPool(10, 5)
+    image.plotTensor(0)
     image.saveImage(save_path)
 
 
