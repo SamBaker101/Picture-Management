@@ -12,10 +12,12 @@ class Picture:
         self.image = 0
         self.width, self.height = 0, 0
         self.tensor = 0
+        self.flat_tensor = 0
         try:
             self.image = Image.open(path)
             self.width, self.height = self.image.size
             self.tensor = ToTensor(self.image)
+            self.flat_tensor = torch.flatten(self.tensor)
         except IOError:
             print('Something went wrong')
 
@@ -39,6 +41,9 @@ class Picture:
 
     def tensorToImage(self):
         self.image = ToPIL(self.tensor)
+
+    def flatten(self):
+        self.flat_tensor = torch.flatten(self.tensor)
 
     def plotTensor(self, channel):
         plt.figure()
@@ -106,3 +111,4 @@ class Picture:
                                        self.tensor[2][i][j])/3
         self.tensor = new_tensor
         self.image = ToPIL(self.tensor)
+

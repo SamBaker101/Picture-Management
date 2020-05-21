@@ -22,12 +22,8 @@ def main():
 
     image.cropImage(70, 50, 300, 200)
 
-    print('Width: ', image.width)
-    print('Height', image.height)
-
-    image.grayScale()
-
-    image.showImage()
+    image.flatten()
+    image.deFlatten()
 
     image.saveImage(save_path)
 
