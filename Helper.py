@@ -146,7 +146,7 @@ class Picture:
         self.image = ToPIL(self.tensor)
         self.width, self.height = self.image.size
 
-    def conv1(self, filter):
+    def mmFilter(self, filter):
         filter_w, filter_h = filter.size()
 
         view_tensor = torch.zeros(filter_w, filter_h)

@@ -28,12 +28,12 @@ def main():
                             [-1., 1., 0, 1., -1.],
                             [-1., -1., 1., -1., -1.]])
 
-
-    image.conv1(filter1)
+    image.halfResLow()
+    image.mmFilter(filter1)
     image.relu1()
-    image.maxPool(2, 1)
-    image.conv1(filter1)
-    image.maxPool(2, 1)
+    image.maxPool(5, 1)
+    image.mmFilter(filter1)
+    image.maxPool(5, 1)
     image.showImage()
     image.plotTensor(0)
     image.saveImage(save_path)
