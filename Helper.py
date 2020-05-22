@@ -138,7 +138,6 @@ class Picture:
                     view_tensor[0] = self.tensor[i][k][j:j + 2]
                     view_tensor[1] = self.tensor[i][k + 1][j:j+ 2]
                     new_tensor[i][int(k/stride)][int(j/stride)] = torch.max(view_tensor)
-                    print(k, j)
                     k += stride
                 j += stride
                 k = 0
@@ -146,3 +145,32 @@ class Picture:
         self.tensor = new_tensor
         self.image = ToPIL(self.tensor)
         self.width, self.height = self.image.size
+
+    def conv1(self, filter):
+        filter_w, filter_h = filter.size()
+
+        view_tensor = torch.zeros(filter_w, filter_h)
+        j, k = int((self.width % filter_w) / 2), int((self.height % filter_h) / 2)
+
+        for i in range(3):
+            while j < self.width - 1 - int((self.width % filter_w) / 2):
+                while k < self.height - 1 - int((self.height % filter_h) / 2):
+                    for m in range(filter_h):
+                        view_tensor[m] = self.tensor[i][k + m][j:j + int(filter_w)]
+
+                    view_tensor = torch.mm(filter, view_tensor)
+
+                    for m in range(filter_h):
+                        self.tensor[i][k + m][j:j + int(filter_w)] = view_tensor[m]
+
+                    k += filter_h
+
+                j += filter_w
+                k = int((self.height - self.height % filter_h) / 2 - 1)
+
+    def relu1(self):
+        for i in range(3):
+            for j in range(int(self.width / - 1)):
+                for k in range(int(self.height / - 1)):
+                    self.tensor[i][k][j] = max(0, self.tensor[i][k][j])
+

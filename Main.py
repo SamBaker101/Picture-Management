@@ -21,7 +21,20 @@ def main():
     print('Height', image.height)
 
     image.cropImage(70, 50, 300, 200)
-    image.maxPool(10, 5)
+
+    filter1 = torch.tensor([[-1., -1., 1., -1., -1.],
+                            [-1., 1., 0, 1., -1.],
+                            [1., 0, 0, 0, 1.],
+                            [-1., 1., 0, 1., -1.],
+                            [-1., -1., 1., -1., -1.]])
+
+
+    image.conv1(filter1)
+    image.relu1()
+    image.maxPool(2, 1)
+    image.conv1(filter1)
+    image.maxPool(2, 1)
+    image.showImage()
     image.plotTensor(0)
     image.saveImage(save_path)
 
