@@ -168,6 +168,40 @@ class Picture:
                 j += filter_w
                 k = int((self.height - self.height % filter_h) / 2 - 1)
 
+    def conv1(self, filter, stride=1):
+        filter_w, filter_h = filter.size()
+        if stride > filter_h or stride > filter_w:
+            print('Invalid Parameters for Pooling')
+            return
+
+        if stride==1:
+            new_tensor = torch.zeros(3, int((self.height) - 1 - filter_h), int((self.width) - 1 - filter_w))
+
+        else:
+            new_tensor = torch.zeros(3, int(self.height/stride - filter_h), int(self.width/stride - filter_w))
+
+        _, new_tensor_h, new_tensor_w = new_tensor.size()
+
+        view_tensor = torch.zeros(filter_w, filter_h)
+        self.tensor = ToTensor(self.image)
+
+        for i in range(3):
+            j , k = 0, 0
+            while k < new_tensor_h - 1:
+                while j < new_tensor_w - 1:
+                    for m in range(filter_h):
+                        view_tensor[m] = self.tensor[i][k * stride + m][j * stride:j*stride + int(filter_w)]
+
+                    new_tensor[i][k][j] = torch.dot(torch.flatten(view_tensor), torch.flatten(filter))
+                    j += 1
+                k += 1
+                j = 0
+
+        self.tensor = new_tensor
+        self.image = ToPIL(self.tensor)
+        self.width, self.height = self.image.size
+
+
     def relu1(self):
         for i in range(3):
             for j in range(int(self.width / - 1)):
