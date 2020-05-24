@@ -201,10 +201,17 @@ class Picture:
         self.image = ToPIL(self.tensor)
         self.width, self.height = self.image.size
 
-
     def relu1(self):
         for i in range(3):
             for j in range(int(self.width / - 1)):
                 for k in range(int(self.height / - 1)):
                     self.tensor[i][k][j] = max(0, self.tensor[i][k][j])
+
+class Filters:
+    def __init__(self):
+        self.filter = 0
+
+    def line22(self):
+        self.filter = torch.tensor([[0, 1.], [0, 1.]])
+        return self.filter
 

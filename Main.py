@@ -8,6 +8,7 @@ from PIL import Image
 import torch
 import torchvision
 from Helper import Picture
+from Helper import Filters
 import matplotlib.pyplot as plt
 
 def main():
@@ -16,6 +17,7 @@ def main():
     save_path = 'jazz_test.jpg'
 
     image = Picture(load_path)
+    Filter = Filters()
 
     print('Width: ', image.width)
     print('Height', image.height)
@@ -28,19 +30,21 @@ def main():
                             [-1., 1., 0, 1., -1.],
                             [-1., -1., 1., -1., -1.]])
 
-    filter2 = torch.tensor([[0, 0, 1., 1., 0, 0],
-                            [0, 0, 1., 1., 0, 0],
-                            [0, 0, 1., 1., 0, 0],
-                            [0, 0, 1., 1., 0, 0],
-                            [0, 0, 1., 1., 0, 0],
-                            [0, 0, 1., 1., 0, 0]])
+    filter2 = torch.tensor([[-1., .25, 0, 1., 0, -1.],
+                            [-1., 0, .25, 1., .25, -1.],
+                            [-1., 0, 0, 1., 0, -1.],
+                            [-1., 0, 0, 1., .25, -1.],
+                            [-1., 0, .25, 1., 0, -1.],
+                            [-1., .25, 0, 1., 0, -1.]])
 
-    image.maxPool()
-    image.conv1(filter2)
+    filter = Filter.line22()
+    image.conv1(filter, stride=3)
     image.relu1()
 
     image.showImage()
     image.plotTensor(0)
+    image.plotTensor(1)
+    image.plotTensor(2)
     image.saveImage(save_path)
 
 
