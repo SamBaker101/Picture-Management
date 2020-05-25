@@ -37,15 +37,18 @@ def main():
                             [-1., 0, .25, 1., 0, -1.],
                             [-1., .25, 0, 1., 0, -1.]])
 
-    filter = Filter.line22()
-    image.conv1(filter, stride=3)
-    image.relu1()
 
+    #filter = Filter.line22()
+    #image.conv1(filter, stride=1)
+    image.normalize()
+    #image.relu1()
+
+'''
     image.showImage()
     image.plotTensor(0)
     image.plotTensor(1)
     image.plotTensor(2)
     image.saveImage(save_path)
-
+'''
 
 main()
