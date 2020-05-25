@@ -38,9 +38,10 @@ def main():
                             [-1., .25, 0, 1., 0, -1.]])
 
 
-    #filter = Filter.line22()
-    #image.conv1(filter, stride=1)
-    image.normalize()
+    filter = Filter.line22()
+    image.conv1(filter, stride=1)
+    image.sigmoid()
+    print(image.tensor)
     #image.relu1()
 
 '''

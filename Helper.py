@@ -203,15 +203,16 @@ class Picture:
 
     def relu1(self):
         for i in range(3):
-            for j in range(int(self.width / - 1)):
-                for k in range(int(self.height / - 1)):
+            for j in range(int(self.width  - 1)):
+                for k in range(int(self.height  - 1)):
                     self.tensor[i][k][j] = max(0, self.tensor[i][k][j])
 
-    def normalize(self):
-        test_tensor = torch.tensor([[[2., 1., 3., 4.], [1.5, 1.6, 0.5, 0.3], [0.7, 0.2, 0.6, 0.3]]])
-        a = torchvision.transforms.Normalize(mean=test_tensor.mean(), std=1)
-        test_tensor = a(test_tensor)
-        print(test_tensor)
+    def sigmoid(self):
+        for i in range(3):
+            for j in range(int(self.width - 1)):
+                for k in range(int(self.height  - 1)):
+                    self.tensor[i][k][j] = 1/(1+torch.exp(-self.tensor[i][k][j]))
+
 
 class Filters:
     def __init__(self):
