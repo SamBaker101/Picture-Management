@@ -24,21 +24,8 @@ def main():
 
     image.cropImage(70, 50, 300, 200)
 
-    filter1 = torch.tensor([[-1., -1., 1., -1., -1.],
-                            [-1., 1., 0, 1., -1.],
-                            [1., 0, 0, 0, 1.],
-                            [-1., 1., 0, 1., -1.],
-                            [-1., -1., 1., -1., -1.]])
 
-    filter2 = torch.tensor([[-1., .25, 0, 1., 0, -1.],
-                            [-1., 0, .25, 1., .25, -1.],
-                            [-1., 0, 0, 1., 0, -1.],
-                            [-1., 0, 0, 1., .25, -1.],
-                            [-1., 0, .25, 1., 0, -1.],
-                            [-1., .25, 0, 1., 0, -1.]])
-
-
-    filter = Filter.edge33()
+    filter = Filter.edge55()
     image.conv1(filter, stride=1)
     image.sigmoid()
     print(image.tensor)

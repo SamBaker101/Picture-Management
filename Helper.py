@@ -225,3 +225,12 @@ class Filters:
     def edge33(self):
         self.filter = torch.tensor([[0, 1., 0], [1., -4., 1.], [0, 1., 0]])
         return self.filter
+
+    def edge55(self):
+        self.filter = torch.tensor([[0, 0, 1., 0, 0],
+                                    [0, 1., -2., 1., 0],
+                                    [1., -2., 0, -2., 1.],
+                                    [0, 1., -2., 1., 0],
+                                    [0, 0, 1., 0, 0]])
+
+        return self.filter
