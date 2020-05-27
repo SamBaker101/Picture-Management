@@ -38,18 +38,17 @@ def main():
                             [-1., .25, 0, 1., 0, -1.]])
 
 
-    filter = Filter.line22()
+    filter = Filter.edge33()
     image.conv1(filter, stride=1)
     image.sigmoid()
     print(image.tensor)
-    #image.relu1()
+    image.relu1()
 
-'''
+
     image.showImage()
     image.plotTensor(0)
-    image.plotTensor(1)
-    image.plotTensor(2)
+
     image.saveImage(save_path)
-'''
+
 
 main()

@@ -219,6 +219,9 @@ class Filters:
         self.filter = 0
 
     def line22(self):
-        self.filter = torch.tensor([[0, 1.], [0, 1.]])
+        self.filter = torch.tensor([[-1., 1.], [-1., 1.]])
         return self.filter
 
+    def edge33(self):
+        self.filter = torch.tensor([[0, 1., 0], [1., -4., 1.], [0, 1., 0]])
+        return self.filter
