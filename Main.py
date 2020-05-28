@@ -24,12 +24,16 @@ def main():
 
     image.cropImage(70, 50, 300, 200)
 
-
-    filter = Filter.horLine33()
-    image.conv1(filter, stride=1)
-    image.sigmoid()
-    print(image.tensor)
+    image.maxPool(kernel_size=4, stride=2)
+    filter = Filter.edge33()
+    image.conv1(filter, stride=2)
     image.relu1()
+    filter = Filter.edge33()
+    image.conv1(filter, stride=1)
+    image.relu1()
+
+    print(image.tensor)
+
 
 
     image.showImage()
