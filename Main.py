@@ -25,7 +25,7 @@ def main():
     image.cropImage(70, 50, 300, 200)
 
 
-    filter = Filter.edge55()
+    filter = Filter.horLine33()
     image.conv1(filter, stride=1)
     image.sigmoid()
     print(image.tensor)

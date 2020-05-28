@@ -218,8 +218,20 @@ class Filters:
     def __init__(self):
         self.filter = 0
 
-    def line22(self):
+    def vertLine22(self):
         self.filter = torch.tensor([[-1., 1.], [-1., 1.]])
+        return self.filter
+
+    def vertLine33(self):
+        self.filter = torch.tensor([[0, -1., 1.], [0, -1., 1.], [0, -1., 1.]])
+        return self.filter
+
+    def horLine22(self):
+        self.filter = torch.tensor([[1., 1.], [-1., -1.]])
+        return self.filter
+
+    def horLine33(self):
+        self.filter = torch.tensor([[0, 0, 0], [-1., -1., -1.], [1., 1., 1.]])
         return self.filter
 
     def edge33(self):
